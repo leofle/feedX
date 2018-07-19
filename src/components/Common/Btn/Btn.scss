@@ -1,0 +1,13 @@
+.btnWrapper {
+	input {
+    padding: 10px;
+    border: none;
+		border-radius: 4px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	input[type="submit"] {
+		background-color: #ffef16;
+	}
+}

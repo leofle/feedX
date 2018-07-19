@@ -1,0 +1,16 @@
+.navigationWrapper {
+		ul {
+			display: flex;
+			justify-content: center;
+			flex-direction: row;
+			background-color: black;
+			margin-bottom: 20px;
+		}
+		li {
+			padding: 20px;
+			a {
+				color: white;
+				text-decoration: none;
+			}
+		}
+}
