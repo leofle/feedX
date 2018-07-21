@@ -5,42 +5,78 @@ import Btn from "../Common/Btn/Btn";
 import Form from "../Common/Form/Form";
 import "./Data.css";
 
-const Data = () => (
-  <div className="dataWrapper">
-    <Form>
-      <Search />
-      <Btn type={"submit"} />
-    </Form>
-    <StackGrid columnWidth={150} gutterWidth={20} gutterHeight={20}>
-      <div key="key1" style={{ height: 200, backgroundColor: "blue" }}>
-        Item 1
+class Data extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      allItems: [],
+      items: [
+        {
+          color: "blue",
+          tag: "balls",
+          height: 200
+        },
+        {
+          color: "red",
+          tag: "item",
+          height: 100
+        },
+        {
+          color: "orange",
+          tag: "balls",
+          height: 130
+        },
+        {
+          color: "green",
+          tag: "item",
+          height: 250
+        },
+        {
+          color: "hotpink",
+          tag: "itemballs",
+          height: 120
+        }
+      ]
+    };
+  }
+  searchItems = query => {
+    if (!this.state.items) return false;
+
+    let items = this.state.allItems.filter(item => {
+      return item.tag.includes(query);
+    });
+    this.setState({ items });
+  };
+  componentDidMount() {
+    localStorage.setItem("allItems", JSON.stringify(this.state.items));
+    const items = JSON.parse(localStorage.getItem("allItems")) || [];
+    this.setState({ items, allItems: items });
+  }
+  render() {
+    return (
+      <div className="dataWrapper">
+        <Form>
+          <Search searchItems={this.searchItems} type={'search'}/>
+          <Btn type={"submit"} />
+        </Form>
+        {this.state.items &&
+          this.state.items.length > 0 && (
+            <StackGrid columnWidth={150} gutterWidth={20} gutterHeight={20}>
+              {this.state.items.map((item, index) => {
+                return (
+                  <div
+                    key={`key${index}`}
+                    style={{ height: item.height, backgroundColor: item.color }}
+                  >
+                    {item.text}
+                  </div>
+                );
+              })}
+            </StackGrid>
+          )}
       </div>
-      <div key="key2" style={{ height: 130, backgroundColor: "red" }}>
-        Item 2
-      </div>
-      <div key="key3" style={{ height: 300, backgroundColor: "orange" }}>
-        Item 3
-      </div>
-      <div key="key4" style={{ height: 200, backgroundColor: "purple" }}>
-        Item 1
-      </div>
-      <div key="key5" style={{ height: 170, backgroundColor: "pink" }}>
-        Item 2
-      </div>
-      <div key="key6" style={{ height: 200, backgroundColor: "yellow" }}>
-        Item 3
-      </div>
-      <div key="key7" style={{ height: 140, backgroundColor: "navajowhite" }}>
-        Item 1
-      </div>
-      <div key="key8" style={{ height: 90, backgroundColor: "hotpink" }}>
-        Item 2
-      </div>
-      <div key="key9" style={{ height: 230, backgroundColor: "blue" }}>
-        Item 3
-      </div>
-    </StackGrid>
-  </div>
-);
+    );
+  }
+}
 
 export default Data;
