@@ -52,6 +52,9 @@ class Data extends React.Component {
     const items = JSON.parse(localStorage.getItem("allItems")) || [];
     this.setState({ items, allItems: items });
   }
+  componentWillUnmount(){
+    localStorage.setItem("allItems", JSON.stringify({}));
+  }
   render() {
     return (
       <div className="dataWrapper">
