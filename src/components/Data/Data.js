@@ -3,6 +3,7 @@ import StackGrid from "react-stack-grid";
 import Search from "../Common/Search/Search";
 import Btn from "../Common/Btn/Btn";
 import Form from "../Common/Form/Form";
+import Widget from "../Common/Widget/Widget";
 import "./Data.css";
 import {debounce} from "../../utils/utils";
 class Data extends React.Component {
@@ -93,12 +94,7 @@ class Data extends React.Component {
             <StackGrid columnWidth={150} gutterWidth={20} gutterHeight={20}>
               {this.state.items.map((item, index) => {
                 return (
-                  <div
-                    key={`key${index}`}
-                    style={{ height: item.height, backgroundColor: item.color }}
-                  >
-                    {item.id}
-                  </div>
+                  <Widget key={`key${index}`} item={item} />
                 );
               })}
             </StackGrid>

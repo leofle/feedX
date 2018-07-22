@@ -3,9 +3,9 @@ import "./Analytics.css";
 
 const Analytics = () => (
   <div className="analyticsWrapper">
-    <h1>Analytics Me</h1>
+    <h1>Analytics</h1>
     <p>
-      You can reach me via email: <strong>hello@example.com</strong>
+      Analytics related to feedX
     </p>
   </div>
 );
