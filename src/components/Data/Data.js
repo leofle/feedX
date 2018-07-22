@@ -12,39 +12,65 @@ class Data extends React.Component {
       allItems: [],
       items: [
         {
+          id:1,
           color: "blue",
-          tag: "balls",
+          tags: "balls",
           height: 200
         },
         {
+          id:2,
           color: "red",
-          tag: "item",
+          tags: "item",
           height: 100
         },
         {
+          id:3,
           color: "orange",
-          tag: "balls",
+          tags: "burger",
           height: 130
         },
         {
+          id:4,
           color: "green",
-          tag: "item",
+          tags: ["item"],
           height: 250
         },
         {
+          id:5,
           color: "hotpink",
-          tag: "itemballs",
+          tags: "nachos",
           height: 120
-        }
+        },
+        {
+          id:6,
+          color: "red",
+          tags: "tag1",
+          height: 90
+        },
+        {
+          id:7,
+          color: "purple",
+          tags: "lio",
+          height: 220
+        },
+        {
+          id:8,
+          color: "yellow",
+          tags: "burger",
+          height: 250
+        },
       ]
     };
   }
+
   searchItems = query => {
     if (!this.state.items) return false;
 
     let items = this.state.allItems.filter(item => {
-      return item.tag.includes(query);
+      return item.tags.includes(query);
     });
+
+    console.log(items);
     this.setState({ items });
   };
   componentDidMount() {
@@ -71,7 +97,7 @@ class Data extends React.Component {
                     key={`key${index}`}
                     style={{ height: item.height, backgroundColor: item.color }}
                   >
-                    {item.text}
+                    {item.id}
                   </div>
                 );
               })}
