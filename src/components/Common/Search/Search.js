@@ -1,10 +1,10 @@
 import React from "react";
 import "./Search.css";
-
 class Search extends React.Component {
-  handleSearch = event => {
-    this.props.searchItems(event.target.value);
-  };
+
+  handleSearch = (e) => {
+    this.props.searchItems(e.target.value);
+  }
 
   render() {
     return (

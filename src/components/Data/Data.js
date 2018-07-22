@@ -4,7 +4,7 @@ import Search from "../Common/Search/Search";
 import Btn from "../Common/Btn/Btn";
 import Form from "../Common/Form/Form";
 import "./Data.css";
-
+import {debounce} from "../../utils/utils";
 class Data extends React.Component {
   constructor(props) {
     super(props);
@@ -63,16 +63,16 @@ class Data extends React.Component {
     };
   }
 
-  searchItems = query => {
+  searchItems = debounce(query => {
     if (!this.state.items) return false;
 
     let items = this.state.allItems.filter(item => {
       return item.tags.includes(query);
     });
 
-    console.log(items);
     this.setState({ items });
-  };
+  }, 1000);
+
   componentDidMount() {
     localStorage.setItem("allItems", JSON.stringify(this.state.items));
     const items = JSON.parse(localStorage.getItem("allItems")) || [];
