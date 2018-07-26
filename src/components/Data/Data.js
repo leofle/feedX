@@ -11,57 +11,46 @@ class Data extends React.Component {
     super(props);
     this.state = {
       allItems: [],
-      items: [
-        {
-          id:1,
-          color: "blue",
-          tags: "balls",
-          height: 200
-        },
-        {
-          id:2,
-          color: "red",
-          tags: "item",
-          height: 100
-        },
-        {
-          id:3,
-          color: "orange",
-          tags: "burger",
-          height: 130
-        },
-        {
-          id:4,
-          color: "green",
-          tags: ["item"],
-          height: 250
-        },
-        {
-          id:5,
-          color: "hotpink",
-          tags: "nachos",
-          height: 120
-        },
-        {
-          id:6,
-          color: "red",
-          tags: "tag1",
-          height: 90
-        },
-        {
-          id:7,
-          color: "purple",
-          tags: "lio",
-          height: 220
-        },
-        {
-          id:8,
-          color: "yellow",
-          tags: "burger",
-          height: 250
-        },
-      ]
+      items: this.createElems(28)
     };
+  }
+
+  makeTag = ()=> {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (let i = 0; i < 5; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+    return text;
+  }
+
+
+getRandomHeight = ()=> {
+  return Math.floor(Math.random() * 200) + 100;
+}
+
+  getRandomColor = ()=> {
+    let letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  createElems = (numElms)=> {
+    let objDemo = {
+      id:null,
+      color: "",
+      tags: "",
+      height: null
+    }
+    let arr = Array(numElms).fill(objDemo);
+    let resArr = arr.map((arrelm, index)=>{
+      return arrelm = Object.assign({}, objDemo, {id: index, color: this.getRandomColor(), tags: this.makeTag(), height: this.getRandomHeight()})
+    })
+    return resArr;
   }
 
   searchItems = debounce(query => {
