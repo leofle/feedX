@@ -6,12 +6,14 @@ import Form from "../Common/Form/Form";
 import Widget from "../Common/Widget/Widget";
 import "./Data.css";
 import {debounce} from "../../utils/utils";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loader from "../Common/Loader/Loader";
 class Data extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       allItems: [],
-      items: this.createElems(28)
+      items: this.createElems(28),
     };
   }
 
@@ -63,6 +65,12 @@ getRandomHeight = ()=> {
     this.setState({ items });
   }, 1000);
 
+  fetchMoreData = () => {
+      this.setState({
+        items: this.createElems(this.state.items.length + 20),
+      });
+  };
+
   componentDidMount() {
     localStorage.setItem("allItems", JSON.stringify(this.state.items));
     const items = JSON.parse(localStorage.getItem("allItems")) || [];
@@ -78,6 +86,12 @@ getRandomHeight = ()=> {
           <Search searchItems={this.searchItems} type={'search'}/>
           <Btn type={"submit"} />
         </Form>
+        <InfiniteScroll
+          dataLength={this.state.items.length}
+          next={this.fetchMoreData}
+          hasMore={true}
+          loader={<Loader color={'grey'}/>}
+        >
         {this.state.items &&
           this.state.items.length > 0 && (
             <StackGrid columnWidth={150} gutterWidth={20} gutterHeight={20}>
@@ -88,6 +102,7 @@ getRandomHeight = ()=> {
               })}
             </StackGrid>
           )}
+        </InfiniteScroll>
       </div>
     );
   }
