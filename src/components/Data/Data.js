@@ -41,7 +41,7 @@ getRandomHeight = ()=> {
     return color;
   }
 
-  createElems = (numElms)=> {
+  createElems = (numElms, lastIndex = 0)=> {
     let objDemo = {
       id:null,
       color: "",
@@ -50,7 +50,7 @@ getRandomHeight = ()=> {
     }
     let arr = Array(numElms).fill(objDemo);
     let resArr = arr.map((arrelm, index)=>{
-      return arrelm = Object.assign({}, objDemo, {id: index, color: this.getRandomColor(), tags: this.makeTag(), height: this.getRandomHeight()})
+      return arrelm = Object.assign({}, objDemo, {id: lastIndex++ || index, color: this.getRandomColor(), tags: this.makeTag(), height: this.getRandomHeight()})
     })
     return resArr;
   }
@@ -66,8 +66,9 @@ getRandomHeight = ()=> {
   }, 1000);
 
   fetchMoreData = () => {
+    let index = this.state.items.length;
       this.setState({
-        items: this.createElems(this.state.items.length + 20),
+        items: [...this.state.items, ...this.createElems(10, index)],
       });
   };
 
