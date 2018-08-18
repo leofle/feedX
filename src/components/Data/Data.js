@@ -28,9 +28,9 @@ class Data extends React.Component {
   }
 
 
-getRandomHeight = ()=> {
-  return Math.floor(Math.random() * 200) + 100;
-}
+  getRandomHeight = ()=> {
+    return Math.floor(Math.random() * 200) + 100;
+  }
 
   getRandomColor = ()=> {
     let letters = '0123456789ABCDEF';
